@@ -110,7 +110,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environment/environment.ts",
-                  "with": "src/environment/environment.staging.ts"
+                  "with": "src/environment/environment.ssr.ts"
                 }
               ]
             }

@@ -1,5 +1,5 @@
 export const environment = {
-    env: "staging",
+    env: "ssr",
     /** True for production and ssr builds - enables static page behavior (no SPA navigation) */
-    staticPages: false,
+    staticPages: true,
 };

@@ -18,9 +18,9 @@ posthog.init(
         api_host: "https://typedb.com/ph",
         ui_host: "https://us.posthog.com",
         person_profiles: "always",
-        // Production: auto-capture pageviews (each navigation is a full page load)
-        // Development: manual capture via SPA navigation events
-        capture_pageview: environment.env === "production",
+        // Static pages: auto-capture pageviews (each navigation is a full page load)
+        // SPA mode: manual capture via navigation events
+        capture_pageview: environment.staticPages,
         capture_pageleave: true,
         disable_session_recording: true,
     }

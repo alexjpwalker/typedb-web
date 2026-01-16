@@ -49,12 +49,12 @@ export class RootComponent {
         if (isPlatformBrowser(this.platformId)) {
             this.analyticsService.google.loadScriptTag();
 
-            if (environment.env === "production") {
-                // Production: static pages, no SPA navigation
+            if (environment.staticPages) {
+                // Static pages: no SPA navigation
                 // PostHog auto-captures pageviews; Customer.io needs manual call on load
                 this.analyticsService.cio.page();
             } else {
-                // Development: SPA mode with client-side navigation
+                // SPA mode: client-side navigation
                 this.initScrollBehaviour();
                 this.capturePageViewOnNavigation();
             }
