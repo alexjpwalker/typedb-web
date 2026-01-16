@@ -60,10 +60,13 @@ export class RootComponent {
             }
         }
 
-        this.contentService.data.subscribe((data) => {
-            this.hasBanner = !!data.getDocumentByID<SanitySiteBanner>(siteBannerSchemaName)?.isEnabled;
-            this.changeDet.markForCheck();
-        });
+        // In static page mode on browser, skip data subscription - SSR already rendered everything
+        if (!(environment.staticPages && isPlatformBrowser(this.platformId))) {
+            this.contentService.data.subscribe((data) => {
+                this.hasBanner = !!data.getDocumentByID<SanitySiteBanner>(siteBannerSchemaName)?.isEnabled;
+                this.changeDet.markForCheck();
+            });
+        }
     }
 
     private capturePageViewOnNavigation() {

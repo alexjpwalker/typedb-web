@@ -30,6 +30,12 @@ export class TopbarMenuComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        // In static page mode on browser, the SSR HTML is already present - just set up listeners
+        if (environment.staticPages && isPlatformBrowser(this.platformId)) {
+            setupTopbarListeners();
+            return;
+        }
+
         this.contentService.getTopbarData().subscribe((data) => {
             this.elementRef.nativeElement.innerHTML = topbar(data);
             if (isPlatformBrowser(this.platformId)) {

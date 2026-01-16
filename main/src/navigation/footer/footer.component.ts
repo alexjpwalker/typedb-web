@@ -24,6 +24,11 @@ export class FooterComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        // In static page mode on browser, the SSR HTML is already present - nothing to do
+        if (environment.staticPages && isPlatformBrowser(this.platformId)) {
+            return;
+        }
+
         this.contentService.getFooterData().subscribe((data) => {
             this.elementRef.nativeElement.innerHTML = generateFooter(data);
             if (!isPlatformBrowser(this.platformId)) return;
