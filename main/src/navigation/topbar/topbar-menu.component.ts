@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 
 import { setupLinks, setupTopbarListeners, topbar } from "typedb-web-common/lib";
 
+import { environment } from "../../environment/environment";
 import { ContentService } from "../../service/content.service";
 import { TopbarMenuService } from "./topbar-menu.service";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -37,7 +38,7 @@ export class TopbarMenuComponent implements OnInit {
                 if (!headerEl) throw "Header element not found";
                 if (headerEl) {
                     // this.setupScrollEvents(headerEl);
-                    setupLinks(headerEl, this.router);
+                    setupLinks(headerEl, this.router, { staticPages: environment.staticPages });
                 }
             }
         });

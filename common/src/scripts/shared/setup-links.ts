@@ -2,7 +2,15 @@ export interface AbstractRouter {
     navigateByUrl: (url: string) => any;
 }
 
-export const setupLinks = (el: HTMLElement | null, router: AbstractRouter) => {
+export interface SetupLinksOptions {
+    /** If true, skip setting up click handlers (let hrefs work naturally) */
+    staticPages?: boolean;
+}
+
+export const setupLinks = (el: HTMLElement | null, router: AbstractRouter, options?: SetupLinksOptions) => {
+    // In static page mode, let hrefs work naturally (full page navigation)
+    if (options?.staticPages) return;
+
     const links = el?.querySelectorAll("a");
     links?.forEach((link) =>
         link.addEventListener("click", (ev) => {

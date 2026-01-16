@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 
 import { generateFooter, setupLinks } from "typedb-web-common/lib";
 
+import { environment } from "../../environment/environment";
 import { ContentService } from "../../service/content.service";
 
 @Component({
@@ -27,7 +28,7 @@ export class FooterComponent implements OnInit {
             this.elementRef.nativeElement.innerHTML = generateFooter(data);
             if (!isPlatformBrowser(this.platformId)) return;
             const footerEl = this.elementRef.nativeElement.querySelector<HTMLElement>(".td-footer");
-            setupLinks(footerEl, this.router);
+            setupLinks(footerEl, this.router, { staticPages: environment.staticPages });
         });
     }
 }
