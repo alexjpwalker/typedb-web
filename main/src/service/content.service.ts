@@ -183,11 +183,17 @@ export class ContentService {
         );
     }
 
-    private handleTransferState<T>(stateKey: StateKey<T>, fetch$: Observable<T>): Observable<T> { // Ensure stateKey is StateKey<T>
+    private handleTransferState<T>(stateKey: StateKey<T>, fetch$: Observable<T>): Observable<T> {
         if (this.transferState.hasKey(stateKey)) {
-            const cachedData = this.transferState.get<T>(stateKey, null as T); // Retrieve data from TransferState
+            const cachedData = this.transferState.get<T>(stateKey, null as T);
             this.transferState.remove(stateKey);
             return of(cachedData);
+        }
+
+        // In static page mode on the browser, skip fetching - the HTML is already rendered
+        // This prevents unnecessary API calls since ng-state is not available
+        if (environment.staticPages && !isPlatformServer(this.platformId)) {
+            return new Observable<T>(() => {}); // Never emits - component already has rendered content
         }
 
         return fetch$.pipe(
